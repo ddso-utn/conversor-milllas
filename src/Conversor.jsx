@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
+import millasAKilometros from './millasAKilometros'
 
 function Conversor() {
-  const [millas, setMillas] = useState('0');
-  const [kilometros, setKilometros] = useState('');
+  const [millas, setMillas] = useState("")
+  const [kilometros, setKilometros] = useState("")
 
-  const convertir = (value) => {
-    setMillas(value)
-    const valorMillas = Number.parseFloat(millas);
-    if (!Number.isNaN(valorMillas)) {
-      const valorKilometros = valorMillas * 1.60934;
-      setKilometros(valorKilometros.toFixed(2));
-    } else {
-      setKilometros('');
-    }
-  };
+  function actualizarMillas(event) {
+    setMillas(event.target.value)
+  }
+
+  function convertir() {
+    setKilometros(millasAKilometros(Number(millas)))
+  }
+
+  // ¿se podría haber hecho que esto funcione sin un botón de convertir?
+  // ---> spoiler: sí, se podría, el botón de convertir es sólo una excusa didáctca
+
+  // ¿se podría setear las millas en otro lado?
+
 
   return (
     <div style={{ maxWidth: '300px', margin: 'auto', padding: '1rem', fontFamily: 'sans-serif' }}>
@@ -23,8 +27,8 @@ function Conversor() {
         <input
           type="number"
           name="millas"
-          value={millas}
-          onChange={(e) => convertir(e.target.value)}
+          placeholder='ingrese su valor'
+          onChange={actualizarMillas}
           style={{ width: '100%', padding: '0.5rem' }}
         />
       </div>
@@ -38,7 +42,7 @@ function Conversor() {
           style={{ width: '100%', padding: '0.5rem', backgroundColor: '#f0f0f0' }}
         />
       </div>
-      <button type='button' onClick={convertir} style={{ width: '100%', padding: '0.5rem' }}>
+      <button type='button'  style={{ width: '100%', padding: '0.5rem' }} onClick={convertir} >
         Convertir
       </button>
     </div>
